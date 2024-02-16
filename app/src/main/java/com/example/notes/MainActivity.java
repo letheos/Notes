@@ -14,9 +14,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button créernote = findViewById(R.id.ajouterNote);
-        créernote.setOnClickListener(this::créernote);
+        créernote.setOnClickListener(this::creernote);
     }
-    private void créernote(View view){
+    private void creernote(View view){
         Intent intent = new Intent(this, Creationnote.class);
         startActivity(intent);
     }
