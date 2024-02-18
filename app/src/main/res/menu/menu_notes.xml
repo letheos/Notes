@@ -4,8 +4,15 @@
 
     <item
         android:id="@+id/addNote"
-        android:title="ajouter une note" />
+        android:title="ajouter une note"/>
+        <!--android:icon="@drawable/baseline_add_24"
+        app:showAsAction="ifRoom"-->
+
+
     <item
         android:id="@+id/addCheckList"
-        android:title="ajouter une checklist" />
+        android:title="ajouter une checklist"/>
+        <!--android:icon="@drawable/checked_checkbox_icon_checkbox_ico_115632629493xkxpf63d8_347081912"
+        app:showAsAction="ifRoom"-->
+
 </menu>

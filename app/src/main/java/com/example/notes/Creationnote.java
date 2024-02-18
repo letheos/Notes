@@ -12,6 +12,6 @@ public class Creationnote extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creationnote);
 
-        Menu menu = findViewById(R.id.)
+        //Menu menu = findViewById(R.id.)
     }
 }
