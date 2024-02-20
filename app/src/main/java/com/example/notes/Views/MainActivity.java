@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -84,8 +86,20 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (id == R.id.deleteAll) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Test")
-                    .setTitle("Letitre");
+            builder.setMessage("Voulez-vous vraiment supprimer toutes vos notes ?")
+                    .setTitle("Avertissement");
+            builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    System.out.println("whaaaat");
+                }
+            });
             AlertDialog dialog = builder.create();
             dialog.show();
             return true;
