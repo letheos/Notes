@@ -6,20 +6,31 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
+import com.example.notes.Managers.NotesHandler;
+import com.example.notes.Models.Note;
 import com.example.notes.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+    private NotesHandler notesHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        notesHandler = new NotesHandler(this);
+        affichernotes();
+        LinearLayout layout = findViewById(R.id.layout_notes);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fabButton = findViewById(R.id.floating_action_button);
@@ -27,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 PopupMenu popupMenu = new PopupMenu(MainActivity.this, fabButton);
                 popupMenu.getMenuInflater().inflate(R.menu.popup_ajouter, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -81,4 +93,24 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void affichernotes(){
+        List<Note> notes = notesHandler.getAllNotes();
+        LinearLayout layout = findViewById(R.id.layout_notes);
+        for (Note note : notes){
+            View cardview = creercard(note);
+            layout.addView(cardview);
+        }
+    }
+
+    private View creercard(Note note){
+        View cardView = LayoutInflater.from(this).inflate(R.layout.note_card_layout, null);
+        TextView textViewTitle = cardView.findViewById(R.id.textViewTitle);
+        TextView textViewContent = cardView.findViewById(R.id.textViewContent);
+
+        // Définir les valeurs de titre et de contenu de la note
+        textViewTitle.setText(note.getTitre());
+        textViewContent.setText(note.getContenu());
+
+        return cardView;
+    }
 }

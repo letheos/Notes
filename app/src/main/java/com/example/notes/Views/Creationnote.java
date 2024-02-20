@@ -1,19 +1,48 @@
 package com.example.notes.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 
+import com.example.notes.Managers.NotesHandler;
+import com.example.notes.Models.Note;
 import com.example.notes.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class Creationnote extends AppCompatActivity {
+    private NotesHandler notesHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creationnote);
 
-        //Menu menu = findViewById(R.id.)
+        notesHandler = new NotesHandler(this);
+
+        Button enregistrer = findViewById(R.id.valider);
+        enregistrer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enregistrernote();
+            }
+        });
+    }
+
+    private void enregistrernote() {
+        TextInputLayout textInputLayoutTitre = findViewById(R.id.edittexttitre);
+        String titresaisi = textInputLayoutTitre.getEditText().getText().toString().trim();
+
+        TextInputLayout textInputLayoutContenu = findViewById(R.id.edittextcontenu);
+        String contenusaisi = textInputLayoutContenu.getEditText().getText().toString().trim();
+
+        if (!titresaisi.isEmpty() && !contenusaisi.isEmpty()) {
+            notesHandler.addNote(new Note(titresaisi, contenusaisi));
+        } else {
+
+        }
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
