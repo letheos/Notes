@@ -3,12 +3,15 @@ package com.example.notes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -22,13 +25,30 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         FloatingActionButton fabButton = findViewById(R.id.floating_action_button);
 
-        fabButton.setOnClickListener(new View.OnClickListener(){
+        fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                creernote(findViewById(android.R.id.content));
+                PopupMenu popupMenu = new PopupMenu(MainActivity.this, fabButton);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_ajouter, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        int id = item.getItemId();
+                        if (id == R.id.note) {
+                            creernote(findViewById(android.R.id.content));
+                            return true;
+                        } else if (id == R.id.checklist) {
+                            creerchecklist(findViewById(android.R.id.content));
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
             }
         });
     }
+
     private void creernote(View view){
         Intent intent = new Intent(this, Creationnote.class);
         startActivity(intent);
@@ -48,17 +68,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.addNote) {
-            creernote(findViewById(android.R.id.content));
+        if (id == R.id.delete) {
             return true;
         }
-        else if (id == R.id.addCheckList) {
-            creerchecklist(findViewById(android.R.id.content));
+        else if (id == R.id.deleteAll) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Test")
+                    .setTitle("Letitre");
+            AlertDialog dialog = builder.create();
+            dialog.show();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 
 }
