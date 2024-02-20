@@ -1,9 +1,11 @@
-package com.example.notes;
+package com.example.notes.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
+
+import com.example.notes.R;
 
 public class Creationnote extends AppCompatActivity {
 
