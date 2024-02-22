@@ -63,6 +63,11 @@ public class NotesHandler extends SQLiteHelper{
                 new String[] { String.valueOf(note.getId()) });
         db.close();
     }
+    public void deleteAllNotes() {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        db.execSQL("DELETE FROM "+dbhelper.TABLE_NOTES);
+        db.close();
+    }
     public int updateNote(Note note){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();

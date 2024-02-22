@@ -97,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
             builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    System.out.println("whaaaat");
+                    notesHandler.deleteAllNotes();
+                    MainActivity.this.recreate();
                 }
             });
             AlertDialog dialog = builder.create();

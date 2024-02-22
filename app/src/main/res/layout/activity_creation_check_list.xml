@@ -67,4 +67,13 @@
         </LinearLayout>
     </ScrollView>
 
+    <Button
+        android:id="@+id/save"
+        android:layout_width="332dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="18dp"
+        android:text="Enregistrer la Check List"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="4dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

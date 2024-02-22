@@ -14,10 +14,12 @@
         tools:targetApi="31">
         <activity
             android:name=".Views.CreationCheckList"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".Views.Creationnote"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".Views.MainActivity"
             android:exported="true">
