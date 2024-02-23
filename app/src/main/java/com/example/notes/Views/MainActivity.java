@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -121,11 +122,42 @@ public class MainActivity extends AppCompatActivity {
         View cardView = LayoutInflater.from(this).inflate(R.layout.note_card_layout, null);
         TextView textViewTitle = cardView.findViewById(R.id.textViewTitle);
         TextView textViewContent = cardView.findViewById(R.id.textViewContent);
-
-        // Définir les valeurs de titre et de contenu de la note
         textViewTitle.setText(note.getTitre());
         textViewContent.setText(note.getContenu());
+        cardView.setTag(note.getId());
+        Button buttonSupprimer = cardView.findViewById(R.id.supprimernote);
+        buttonSupprimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                supprimernote(cardView);
+            }
+        });
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modifiernote(v);
+            }
+        });
 
         return cardView;
     }
+    private void supprimernote(View card){;
+        notesHandler.deleteNote(notesHandler.getNote((Integer) card.getTag()));
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+    }
+    private void modifiernote(View card) {
+        Intent intent = new Intent(this, Creationnote.class);
+        TextView textViewTitle = card.findViewById(R.id.textViewTitle);
+        TextView textViewContent = card.findViewById(R.id.textViewContent);
+        if (textViewTitle != null && textViewContent != null) {
+            String title = textViewTitle.getText().toString();
+            String content = textViewContent.getText().toString();
+            intent.putExtra("titre", title);
+            intent.putExtra("content", content);
+            startActivity(intent);
+        }
+    }
+
 }
