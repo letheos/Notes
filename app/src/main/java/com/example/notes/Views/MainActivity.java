@@ -154,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
         if (textViewTitle != null && textViewContent != null) {
             String title = textViewTitle.getText().toString();
             String content = textViewContent.getText().toString();
+            int id = (int)card.getTag();
+            intent.putExtra("id",id);
             intent.putExtra("titre", title);
             intent.putExtra("content", content);
             startActivity(intent);
