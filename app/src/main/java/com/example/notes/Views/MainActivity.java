@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //on génère au lancement du code les différentes cartes en récupérant les notes contenues dans la base
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         notesHandler = new NotesHandler(this);
@@ -63,23 +64,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //fonction qui ouvre une nouvelle page pour créer une note
     private void creernote(View view){
         Intent intent = new Intent(this, Creationnote.class);
         startActivity(intent);
     }
 
+    //fonction qui ouvre une nouvelle page pour créer une checklist
     private void creerchecklist(View viewById) {
         Intent intent = new Intent(this, CreationCheckList.class);
         startActivity(intent);
     }
 
     @Override
+    //fonction qui génère le menu en haut de page
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_notes, menu);
         return true;
 
     }
     @Override
+    //message d'avertissement si la personne clique sur le bouton supprimer toutes les notes
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.delete) {
@@ -109,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    //on affiche toutes les notes en créant de nouvelles cardview
     private void affichernotes(){
         List<Note> notes = notesHandler.getAllNotes();
         LinearLayout layout = findViewById(R.id.layout_notes);
@@ -117,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             layout.addView(cardview);
         }
     }
-
+    //fonction pour générer une card
     private View creercard(Note note){
         View cardView = LayoutInflater.from(this).inflate(R.layout.note_card_layout, null);
         TextView textViewTitle = cardView.findViewById(R.id.textViewTitle);
@@ -143,6 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
         return cardView;
     }
+
+    //fonction qui affiche un message d'alerte quand on appuie sur le bouton supprimer d'une note
     private void alertenote(View card) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Voulez-vous vraiment supprimer cette note ?")
@@ -165,12 +174,15 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    //fonction de supression d'une note
     private void supprimernote(View card){;
         notesHandler.deleteNote(notesHandler.getNote((Integer) card.getTag()));
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
     }
+
+    //fonction qui ouvre une new intent pour modifier une note déja existante
     private void modifiernote(View card) {
         Intent intent = new Intent(this, Creationnote.class);
         TextView textViewTitle = card.findViewById(R.id.textViewTitle);

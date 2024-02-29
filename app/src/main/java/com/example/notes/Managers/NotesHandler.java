@@ -17,11 +17,14 @@ import java.util.List;
 public class NotesHandler extends SQLiteHelper{
     private SQLiteHelper dbhelper;
 
+    //classe qui permet de gérer les notes dans la base de donnée
     public NotesHandler(@Nullable Context context) {
         super(context);
         dbhelper = new SQLiteHelper(context);
     }
 
+
+    //fonction qui permet de rajouter une note dans la base
     public int addNote(Note note){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -32,6 +35,8 @@ public class NotesHandler extends SQLiteHelper{
         return (int)insertid;
     }
 
+
+    //récupérer une note sous la classe Note depuis son numéro d'id
     public Note getNote(int id){
         SQLiteDatabase db = dbhelper.getReadableDatabase();
         Cursor cursor = db.query(dbhelper.TABLE_NOTES, new String[] { dbhelper.KEY_ID,
@@ -43,6 +48,8 @@ public class NotesHandler extends SQLiteHelper{
                 cursor.getString(1), cursor.getString(2));
         return note;
     }
+
+    //récupérer toutes les notes de la base sous forme d'une liste
     public List<Note> getAllNotes() {
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         List<Note> notelist = new ArrayList<Note>();
@@ -57,17 +64,23 @@ public class NotesHandler extends SQLiteHelper{
         }
         return notelist;
     }
+
+    //supprimer une note de la base en utilisant en référence l'objet note contenu dans la base
     public void deleteNote(Note note) {
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         db.delete(dbhelper.TABLE_NOTES, dbhelper.KEY_ID + " = ?",
                 new String[] { String.valueOf(note.getId()) });
         db.close();
     }
+
+    //supprimer toutes les notes de la base
     public void deleteAllNotes() {
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         db.execSQL("DELETE FROM "+dbhelper.TABLE_NOTES);
         db.close();
     }
+
+    //modifier le contenu et le titre d'une note dans la base à partir d'une déja existante
     public int updateNote(Note note){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();

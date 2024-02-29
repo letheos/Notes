@@ -1,5 +1,7 @@
 package com.example.notes.Models;
 
+
+//classe note
 public class Note {
     int id;
     String titre;

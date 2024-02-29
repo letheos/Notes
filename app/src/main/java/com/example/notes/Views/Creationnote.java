@@ -12,6 +12,7 @@ import com.example.notes.Models.Note;
 import com.example.notes.R;
 import com.google.android.material.textfield.TextInputLayout;
 
+//classe Création note qui permet de créer une note dans une autre page xml
 public class Creationnote extends AppCompatActivity {
     private NotesHandler notesHandler;
 
