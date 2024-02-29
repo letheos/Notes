@@ -36,7 +36,6 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
-
         android:hint="Titre"
         app:boxBackgroundColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"

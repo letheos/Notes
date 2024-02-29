@@ -108,7 +108,9 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+    @Override
+    public boolean suppressionnoteunique()
+        //TODO terminer en rajoutant un menu de validation pop up comme la fonction au dessus
     private void affichernotes(){
         List<Note> notes = notesHandler.getAllNotes();
         LinearLayout layout = findViewById(R.id.layout_notes);
@@ -123,9 +125,11 @@ public class MainActivity extends AppCompatActivity {
         TextView textViewTitle = cardView.findViewById(R.id.textViewTitle);
         TextView textViewContent = cardView.findViewById(R.id.textViewContent);
         textViewTitle.setText(note.getTitre());
+
         textViewContent.setText(note.getContenu());
         cardView.setTag(note.getId());
         Button buttonSupprimer = cardView.findViewById(R.id.supprimernote);
+
         buttonSupprimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
