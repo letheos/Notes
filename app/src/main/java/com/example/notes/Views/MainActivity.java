@@ -108,9 +108,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    @Override
-    public boolean suppressionnoteunique()
-        //TODO terminer en rajoutant un menu de validation pop up comme la fonction au dessus
+
     private void affichernotes(){
         List<Note> notes = notesHandler.getAllNotes();
         LinearLayout layout = findViewById(R.id.layout_notes);
@@ -133,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         buttonSupprimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                supprimernote(cardView);
+                alertenote(cardView);
             }
         });
         cardView.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +143,28 @@ public class MainActivity extends AppCompatActivity {
 
         return cardView;
     }
+    private void alertenote(View card) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Voulez-vous vraiment supprimer cette note ?")
+                .setTitle("Confirmation de suppression");
+        builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setPositiveButton("Supprimer", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                supprimernote(card);
+            }
+        });
+
+        // Créer et afficher la boîte de dialogue
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     private void supprimernote(View card){;
         notesHandler.deleteNote(notesHandler.getNote((Integer) card.getTag()));
         Intent intent = new Intent(this, MainActivity.class);
